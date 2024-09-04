@@ -1,6 +1,8 @@
-import { Form, Link, useActionData } from "react-router-dom";
+import { ActionFunctionArgs, Form, Link, useActionData } from "react-router-dom";
+import ErrorMessage from "../components/ErrorMessage";
+import { addProduct } from "../services/ProductService";
 
-export async function action({request}) {
+export async function action({request} : ActionFunctionArgs) {
   const data = Object.fromEntries( await request.formData())
 
   let error = ''
@@ -10,14 +12,15 @@ export async function action({request}) {
   if(error.length){
     return error
   }
+
+  addProduct(data)
+
   return {}
 }
 
 export default function NewProduct() {
+const error = useActionData() as string
 
-const error = useActionData()
-
-console.log(error)
   return (
     <>
       <div className='flex justify-between'>
@@ -31,6 +34,8 @@ console.log(error)
           Volver a Porductos
         </Link>
       </div>
+
+      {error && <ErrorMessage>{error}</ErrorMessage>}
 
       <Form
       className='mt-10'
