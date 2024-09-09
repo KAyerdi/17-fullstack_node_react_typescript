@@ -31,7 +31,7 @@ const error = useActionData() as string
           to='/'
           className='rounded-md bg-indigo-600 p-3 text-sm font-bold text-white shadow-sm hover:bg-indigo-500'
         >
-          Volver a Porductos
+          Volver a Productos
         </Link>
       </div>
 
