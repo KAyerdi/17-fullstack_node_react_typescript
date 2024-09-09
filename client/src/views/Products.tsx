@@ -2,8 +2,9 @@ import { Link } from "react-router-dom"
 import { getProducts } from "../services/ProductService"
 
 export async function loader() {
-  await getProducts()
-  
+  const products = await getProducts()
+  console.log(products)
+
   return {}
 }
 

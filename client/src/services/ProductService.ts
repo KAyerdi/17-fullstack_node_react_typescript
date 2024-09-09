@@ -27,10 +27,10 @@ export async function addProduct(data : ProductData) {
 }
 
 export async function getProducts() {
-  try{
+  try {
       const url = `${import.meta.env.VITE_API_URL}/api/products`
       const { data } = await axios(url)
-      const result = safeParse(ProductsSchema, data.data )
+      const result = safeParse(ProductsSchema, data.data)
       console.log(result)
   } catch (error){
     console.log(error)
