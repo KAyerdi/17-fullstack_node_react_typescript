@@ -9,7 +9,6 @@ import {
 } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
 import {
-  addProduct,
   getProductsById,
   updateProduct,
 } from "../services/ProductService";
@@ -38,14 +37,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   if (params.id !== undefined) {
     await updateProduct(data, +params.id);
-
     return redirect("/");
   }
 }
 
 const availabilityOptions = [
-  { name: "Disponible", value: true },
-  { name: "No Disponible", value: false },
+  { name: "Disponible", value: true},
+  { name: "No Disponible", value: false},
 ];
 
 export default function EditProduct() {
@@ -103,8 +101,11 @@ export default function EditProduct() {
             name='availability'
             defaultValue={product?.availability.toString()}
           >
-            {availabilityOptions.map((option) => (
-              <option key={option.name} value={option.value.toString()}>
+            {availabilityOptions.map(option => (
+              <option
+              key={option.name}
+              value={option.value.toString()}
+              >
                 {option.name}
               </option>
             ))}
