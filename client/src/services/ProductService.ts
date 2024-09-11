@@ -1,5 +1,5 @@
 import axios from "axios";
-import { safeParse } from "valibot";
+import { safeParse, transform, number, parse, pipe, string } from "valibot";
 import { DraftProductSchema, Product, ProductSchema, ProductsSchema } from "../types";
 
 type ProductData = {
@@ -54,4 +54,20 @@ export async function getProductsById(id : Product['id']) {
   } catch (error){
     console.log(error)
   }
+}
+
+export async function updateProduct(data : ProductData, id: Product['id']) {
+  try {
+    //Este es el schema ya listo
+    const NumberSchema = pipe(string(), transform(Number), number());
+    const result = safeParse(ProductSchema, {
+        id,
+        name: data.name,
+        price: parse(NumberSchema, data.price),
+        availability: data.availability
+    })
+    console.log(result);
+} catch (error) {
+    console.log(error);
+}
 }
