@@ -1,4 +1,4 @@
-import { ActionFunctionArgs, Form, redirect, useNavigate, useFetcher } from "react-router-dom"
+import { ActionFunctionArgs, Form, redirect, useFetcher, useNavigate } from "react-router-dom"
 import { deleteProduct } from "../services/ProductService"
 import { Product } from "../types"
 import { formatCurrency } from "../utils"
@@ -7,13 +7,16 @@ type ProductDetailsProps = {
   product: Product
 }
 
-export async function action({params} : ActionFunctionArgs) {
-  if(params !== undefined) {
+export async function action({ params }: ActionFunctionArgs) {
+  if (params && params.id) {
     await deleteProduct(+params.id)
     return redirect('/')
+  } else {
+    // Manejar el caso en que params o params.id no estén definidos
+    throw new Error("Product ID is missing");
   }
-
 }
+
 
 export default function ProductDetails({product} : ProductDetailsProps) {
   const fetcher = useFetcher()
